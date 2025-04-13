@@ -12,6 +12,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.snapview.presentation.screens.HomeScreen.HomeScreen
+import com.example.snapview.presentation.screens.HomeScreen.HomeViewModel
 import com.example.snapview.ui.theme.InterFontFamily
 import com.example.snapview.ui.theme.SnapViewTheme
 
@@ -21,18 +24,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             SnapViewTheme {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Hello Android",
-                        fontFamily = InterFontFamily,
-                        fontWeight = FontWeight.SemiBold,
-                        fontSize = 24.sp
-                    )
-                }
+                val viewModel = viewModel<HomeViewModel>()
+                HomeScreen(images = viewModel.images)
             }
         }
     }
