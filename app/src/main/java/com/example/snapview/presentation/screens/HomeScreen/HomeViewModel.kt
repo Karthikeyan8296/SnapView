@@ -6,7 +6,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.snapview.data.mapper.toDomainModelList
-import com.example.snapview.data.remote.dto.UnsplashImageDTO
 import com.example.snapview.di.AppModule
 import com.example.snapview.domain.model.UnsplashImage
 import kotlinx.coroutines.launch
