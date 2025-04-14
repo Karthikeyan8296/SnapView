@@ -32,7 +32,6 @@ fun HomeScreen(
     onSearchClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     onFabClick: () -> Unit,
-    paddingValues: PaddingValues,
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(

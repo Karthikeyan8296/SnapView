@@ -20,7 +20,7 @@ import com.example.snapview.ui.theme.InterFontFamily
 fun TopAppBar(
     modifier: Modifier = Modifier,
     title: String = "SnapView",
-    onSearchClick: () -> Unit = {},
+    onSearchClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
 ) {
     CenterAlignedTopAppBar(
