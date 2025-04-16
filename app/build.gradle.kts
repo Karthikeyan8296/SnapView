@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -13,6 +15,8 @@ android {
     namespace = "com.example.snapview"
     compileSdk = 35
 
+
+
     defaultConfig {
         applicationId = "com.example.snapview"
         minSdk = 24
@@ -21,6 +25,15 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        //to get the access of the keys to our code
+        val properties = Properties()
+        properties.load(project.rootProject.file("local.properties").inputStream())
+        buildConfigField(
+            "String",
+            "UNSPLASH_API_ACCESS",
+            properties.getProperty("UNSPLASH_API_ACCESS")
+        )
     }
 
     buildTypes {
@@ -41,6 +54,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 composeCompiler {

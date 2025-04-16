@@ -18,10 +18,12 @@ import com.example.snapview.presentation.navigations.NavGraph
 import com.example.snapview.presentation.screens.HomeScreen.HomeScreen
 import com.example.snapview.presentation.screens.HomeScreen.HomeViewModel
 import com.example.snapview.ui.theme.SnapViewTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
+@OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

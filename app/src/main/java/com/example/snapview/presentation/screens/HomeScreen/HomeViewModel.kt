@@ -5,13 +5,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.snapview.data.mapper.toDomainModelList
-import com.example.snapview.di.AppModule
 import com.example.snapview.domain.model.UnsplashImage
+import com.example.snapview.domain.repository.ImageRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val repository: ImageRepository,
+) : ViewModel() {
 
     //state
     var images: List<UnsplashImage> by mutableStateOf(emptyList())
@@ -26,9 +29,8 @@ class HomeViewModel : ViewModel() {
     //function for that state
     private fun getImages() {
         viewModelScope.launch {
-            val response = AppModule.retrofitService.getEditorialFeedImages()
-            //mapper function to map the dto to domain model
-            images = response.toDomainModelList()
+            val response = repository.getEditorialFeedImages()
+            images = response
         }
     }
 }

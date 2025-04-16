@@ -3,6 +3,7 @@ package com.example.snapview.presentation.navigations
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -24,7 +25,9 @@ fun NavGraph(navController: NavHostController, scrollBehavior: TopAppBarScrollBe
     ) {
         composable<Routes.HomeScreen> {
             //viewModel
-            val viewModel = viewModel<HomeViewModel>()
+            //val viewModel = viewModel<HomeViewModel>()
+            //using dagger hilt
+            val viewModel: HomeViewModel = hiltViewModel()
             HomeScreen(
                 images = viewModel.images,
                 scrollBehavior = scrollBehavior,
