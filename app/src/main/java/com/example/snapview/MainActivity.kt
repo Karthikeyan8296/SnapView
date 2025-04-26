@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
         installSplashScreen()
         setContent {
             SnapViewTheme {
-                //scrollBehavior for the topAppBar
+                //scrollBehavior for the topAppBar UI
                 val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
                 //navController

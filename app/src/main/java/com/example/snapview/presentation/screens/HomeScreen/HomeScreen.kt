@@ -74,6 +74,7 @@ fun HomeScreen(
             )
         }
 
+        //Image card zoom View
         ZoomImageCard(
             isVisible = showImagePreview,
             image = ActiveImage,
