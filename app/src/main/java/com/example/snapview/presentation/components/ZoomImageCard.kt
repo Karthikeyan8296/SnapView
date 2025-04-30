@@ -30,6 +30,8 @@ import com.skydoves.cloudy.Cloudy
 
 @Composable
 fun ZoomImageCard(modifier: Modifier = Modifier, isVisible: Boolean, image: UnsplashImage?) {
+
+
     val imageReq = ImageRequest.Builder(LocalContext.current)
         .data(image?.imageUrlRegular)
         .crossfade(true)
@@ -70,7 +72,6 @@ fun ZoomImageCard(modifier: Modifier = Modifier, isVisible: Boolean, image: Unsp
                     model = imageReq,
                     contentDescription = null
                 )
-
             }
         }
     }

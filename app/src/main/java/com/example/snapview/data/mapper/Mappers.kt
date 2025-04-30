@@ -4,6 +4,7 @@ import com.example.snapview.data.remote.dto.UnsplashImageDTO
 import com.example.snapview.domain.model.UnsplashImage
 
 //mapping the dto to domain model
+//mapper for single image
 fun UnsplashImageDTO.toDomainModel(): UnsplashImage {
     return UnsplashImage(
         id = this.id,

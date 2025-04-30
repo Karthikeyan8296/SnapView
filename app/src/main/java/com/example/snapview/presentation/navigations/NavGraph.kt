@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.example.snapview.presentation.screens.FavoriteScreen.FavoriteScreen
 import com.example.snapview.presentation.screens.FullImageScreen.FullImageScreen
+import com.example.snapview.presentation.screens.FullImageScreen.FullImageViewModel
 import com.example.snapview.presentation.screens.HomeScreen.HomeScreen
 import com.example.snapview.presentation.screens.HomeScreen.HomeViewModel
 import com.example.snapview.presentation.screens.ProfileScreen.ProfileScreen
@@ -50,14 +51,16 @@ fun NavGraph(navController: NavHostController, scrollBehavior: TopAppBarScrollBe
             FavoriteScreen()
         }
         //getting the image id with backStackEntry
-        composable<Routes.FullImageScreen> { backStackEntry ->
-            val imageId = backStackEntry.toRoute<Routes.FullImageScreen>().imageId
+        composable<Routes.FullImageScreen> {
+//            backStackEntry ->
+//            val imageId = backStackEntry.toRoute<Routes.FullImageScreen>().imageId
+            val viewModel: FullImageViewModel = hiltViewModel()
             FullImageScreen(
-                imageId = imageId
+                image = viewModel.image
             )
         }
         composable<Routes.ProfileScreen> {
-            ProfileScreen()
+            //ProfileScreen()
         }
     }
 }
