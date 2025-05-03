@@ -75,7 +75,7 @@ fun FullImageViewTopBar(
     modifier: Modifier = Modifier,
     onBackClick: () -> Unit,
     image: UnsplashImage?,
-    onPhotographerImgClick: (String) -> Unit,
+    onPhotographerNameClick: (String) -> Unit,
     onDownloadClick: () -> Unit,
     isVisible: Boolean
 ) {
@@ -105,7 +105,8 @@ fun FullImageViewTopBar(
             Column(
                 modifier = Modifier.clickable {
                     //pass the profile link
-                    image?.let { onPhotographerImgClick(it.photographerProfileLink) }
+                    //if the image is not null, then send the link
+                    image?.let { onPhotographerNameClick(it.photographerProfileLink) }
                 }
             ) {
                 Text(

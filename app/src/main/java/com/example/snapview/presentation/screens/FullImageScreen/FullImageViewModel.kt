@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
 import com.example.snapview.domain.model.UnsplashImage
+import com.example.snapview.domain.repository.Downloader
 import com.example.snapview.domain.repository.ImageRepository
 import com.example.snapview.presentation.navigations.Routes
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,6 +18,7 @@ import javax.inject.Inject
 @HiltViewModel
 class FullImageViewModel @Inject constructor(
     private val repository: ImageRepository,
+    private val downloader: Downloader,
     savedStateHandle: SavedStateHandle
 ) :
     ViewModel() {
@@ -43,4 +45,14 @@ class FullImageViewModel @Inject constructor(
         }
     }
 
+    //download function
+    fun downloadImg(url: String, fileName: String?) {
+        viewModelScope.launch {
+            try {
+                downloader.downloadFile(url, fileName)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }

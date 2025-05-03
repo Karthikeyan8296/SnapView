@@ -1,13 +1,17 @@
 package com.example.snapview.di
 
+import android.content.Context
 import com.example.snapview.data.remote.UnsplashAPIService
+import com.example.snapview.data.repository.DownloaderImpl
 import com.example.snapview.data.repository.ImageRepositoryImpl
 import com.example.snapview.data.util.Constants.BASE_URL
+import com.example.snapview.domain.repository.Downloader
 import com.example.snapview.domain.repository.ImageRepository
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -41,5 +45,12 @@ object AppModule {
     //connecting the viewmodel with the repo
     fun provideImageRepository(apiService: UnsplashAPIService): ImageRepository {
         return ImageRepositoryImpl(apiService)
+    }
+
+    //we are attaching the downloader impl to the downloader interface
+    @Provides
+    @Singleton
+    fun provideDownloader(@ApplicationContext context: Context): Downloader {
+        return DownloaderImpl(context = context)
     }
 }

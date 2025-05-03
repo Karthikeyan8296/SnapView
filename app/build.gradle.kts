@@ -15,8 +15,6 @@ android {
     namespace = "com.example.snapview"
     compileSdk = 35
 
-
-
     defaultConfig {
         applicationId = "com.example.snapview"
         minSdk = 24
@@ -52,6 +50,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    //this need be set
     buildFeatures {
         compose = true
         buildConfig = true
@@ -78,6 +77,9 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    //Status bar color change
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
 
     //compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)

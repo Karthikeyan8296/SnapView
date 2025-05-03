@@ -7,6 +7,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.snapview.presentation.screens.ProfileScreen.ProfileScreen
 import com.example.snapview.presentation.screens.FavoriteScreen.FavoriteScreen
 import com.example.snapview.presentation.screens.FullImageScreen.FullImageScreen
@@ -56,15 +57,19 @@ fun NavGraph(navController: NavHostController, scrollBehavior: TopAppBarScrollBe
             FullImageScreen(
                 image = viewModel.image,
                 onBackClick = { navController.popBackStack() },
-                onPhotographerImgClick = { photographerProfileLink ->
+                onPhotographerNameClick = { photographerProfileLink ->
                     navController.navigate(Routes.ProfileScreen(photographerProfileLink))
+                },
+                onImgDownloadClick = { url, fileName ->
+                    viewModel.downloadImg(url, fileName)
                 }
             )
         }
-        composable<Routes.ProfileScreen> {
+        composable<Routes.ProfileScreen> { backStackEntry ->
+            val profileLink = backStackEntry.toRoute<Routes.ProfileScreen>().profileLink
             ProfileScreen(
                 onBackClick = { navController.popBackStack() },
-                profileLink = TODO()
+                profileLink = profileLink
             )
         }
     }
