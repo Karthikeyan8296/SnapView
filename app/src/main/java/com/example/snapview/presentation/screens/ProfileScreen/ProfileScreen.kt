@@ -14,7 +14,7 @@ import androidx.compose.material3.TopAppBar
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
-    profileLink: String,
+    profileLink: String?,
     onBackClick: () -> Unit
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
