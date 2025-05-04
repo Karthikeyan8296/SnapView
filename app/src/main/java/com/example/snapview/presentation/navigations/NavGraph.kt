@@ -1,6 +1,7 @@
 package com.example.snapview.presentation.navigations
 
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -18,7 +19,11 @@ import com.example.snapview.presentation.screens.SearchScreen.SearchScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavGraph(navController: NavHostController, scrollBehavior: TopAppBarScrollBehavior) {
+fun NavGraph(
+    navController: NavHostController,
+    scrollBehavior: TopAppBarScrollBehavior,
+    snackBarHostState: SnackbarHostState
+) {
     NavHost(
         navController = navController,
         startDestination = Routes.HomeScreen
@@ -41,6 +46,8 @@ fun NavGraph(navController: NavHostController, scrollBehavior: TopAppBarScrollBe
                 onFabClick = {
                     navController.navigate(Routes.FavoriteScreen)
                 },
+                snackBarEvent = viewModel.snackBarEvent,
+                snackBarState = snackBarHostState
             )
         }
         composable<Routes.SearchScreen> {
@@ -62,7 +69,9 @@ fun NavGraph(navController: NavHostController, scrollBehavior: TopAppBarScrollBe
                 },
                 onImgDownloadClick = { url, fileName ->
                     viewModel.downloadImg(url, fileName)
-                }
+                },
+                snackBarEvent = viewModel.snackBarEvent,
+                snackBarState = snackBarHostState
             )
         }
         composable<Routes.ProfileScreen> { backStackEntry ->

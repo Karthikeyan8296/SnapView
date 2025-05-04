@@ -11,8 +11,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -24,6 +26,8 @@ import com.example.snapview.domain.model.UnsplashImage
 import com.example.snapview.presentation.components.ImagesVerticalGrid
 import com.example.snapview.presentation.components.TopAppBar
 import com.example.snapview.presentation.components.ZoomImageCard
+import com.example.snapview.presentation.util.SnackBarEvent
+import kotlinx.coroutines.flow.Flow
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,9 +37,21 @@ fun HomeScreen(
     onSearchClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     onFabClick: () -> Unit,
+    snackBarEvent: Flow<SnackBarEvent>,
+    snackBarState: SnackbarHostState
 ) {
     var showImagePreview by remember { mutableStateOf(false) }
     var ActiveImage by remember { mutableStateOf<UnsplashImage?>(null) }
+
+    //SnackBar
+    LaunchedEffect(key1 = true) {
+        snackBarEvent.collect { event ->
+            snackBarState.showSnackbar(
+                message = event.message,
+                duration = event.duration
+            )
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         Column(

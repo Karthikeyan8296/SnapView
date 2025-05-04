@@ -110,12 +110,12 @@ fun FullImageViewTopBar(
                 }
             ) {
                 Text(
-                    text = image?.photographerName ?: "Anonymous",
+                    text = image?.photographerName ?: "",
                     fontFamily = InterFontFamily,
                     style = MaterialTheme.typography.titleMedium
                 )
                 Text(
-                    text = image?.photographerUsername ?: "HappyUser",
+                    text = image?.photographerUsername ?: "",
                     fontFamily = InterFontFamily,
                     style = MaterialTheme.typography.bodySmall
                 )

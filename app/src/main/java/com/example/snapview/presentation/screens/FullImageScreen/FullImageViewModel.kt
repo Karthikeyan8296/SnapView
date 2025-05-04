@@ -11,8 +11,12 @@ import com.example.snapview.domain.model.UnsplashImage
 import com.example.snapview.domain.repository.Downloader
 import com.example.snapview.domain.repository.ImageRepository
 import com.example.snapview.presentation.navigations.Routes
+import com.example.snapview.presentation.util.SnackBarEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +28,10 @@ class FullImageViewModel @Inject constructor(
     ViewModel() {
     //getting the image id from the navGraph directly
     private val imageId = savedStateHandle.toRoute<Routes.FullImageScreen>().imageId
+
+    //SnackBar
+    private val _snackBarEvent = Channel<SnackBarEvent>()
+    val snackBarEvent = _snackBarEvent.receiveAsFlow()
 
     //state
     var image: UnsplashImage? by mutableStateOf(null)
@@ -39,8 +47,14 @@ class FullImageViewModel @Inject constructor(
             try {
                 val response = repository.getImage(imageId = imageId)
                 image = response
+            } catch (e: UnknownHostException) {
+                _snackBarEvent.send(
+                    SnackBarEvent(message = "No Internet connection, please check your Internet: ${e.message}")
+                )
             } catch (e: Exception) {
-                e.printStackTrace()
+                _snackBarEvent.send(
+                    SnackBarEvent(message = "Oops, Something went wrong: ${e.message}")
+                )
             }
         }
     }
@@ -51,7 +65,13 @@ class FullImageViewModel @Inject constructor(
             try {
                 downloader.downloadFile(url, fileName)
             } catch (e: Exception) {
-                e.printStackTrace()
+                _snackBarEvent.send(
+                    SnackBarEvent(message = "Oops, Something went wrong while downloading: ${e.message}")
+                )
+            } catch (e: UnknownHostException) {
+                _snackBarEvent.send(
+                    SnackBarEvent(message = "No Internet connection, please check your Internet: ${e.message}")
+                )
             }
         }
     }
