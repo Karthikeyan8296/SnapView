@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.snapview.presentation.screens.ProfileScreen.ProfileScreen
 import com.example.snapview.presentation.screens.FavoriteScreen.FavoriteScreen
 import com.example.snapview.presentation.screens.FullImageScreen.FullImageScreen
@@ -16,6 +17,7 @@ import com.example.snapview.presentation.screens.FullImageScreen.FullImageViewMo
 import com.example.snapview.presentation.screens.HomeScreen.HomeScreen
 import com.example.snapview.presentation.screens.HomeScreen.HomeViewModel
 import com.example.snapview.presentation.screens.SearchScreen.SearchScreen
+import com.example.snapview.presentation.screens.SearchScreen.SearchViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -51,7 +53,17 @@ fun NavGraph(
             )
         }
         composable<Routes.SearchScreen> {
-            SearchScreen()
+            val viewModel: SearchViewModel = hiltViewModel()
+            SearchScreen(
+                onImageClick = { imageId ->
+                    navController.navigate(Routes.FullImageScreen(imageId = imageId))
+                },
+                onBackClick = { navController.popBackStack() },
+                snackBarEvent = viewModel.snackBarEvent,
+                snackBarState = snackBarHostState,
+                searchedImages = viewModel.searchImages.collectAsLazyPagingItems(),
+                onSearch = { viewModel.searchImages(it) }
+            )
         }
         composable<Routes.FavoriteScreen> {
             FavoriteScreen()

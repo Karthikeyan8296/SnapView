@@ -10,12 +10,12 @@ data class UnsplashImageDTO(
     val height: Int,
     val description: String?,
     val likes: Int,
-    val urls: Urls,
+    val urls: UrlsDTO,
     val user: UserDTO,
 )
 
 @Serializable
-data class Urls(
+data class UrlsDTO(
     val full: String,
     val raw: String,
     val regular: String,

@@ -13,12 +13,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import com.example.snapview.domain.model.UnsplashImage
 
 @Composable
 fun ImagesVerticalGrid(
     modifier: Modifier = Modifier,
-    images: List<UnsplashImage?>,
+    images: LazyPagingItems<UnsplashImage>,
     onImageClick: (String) -> Unit,
     onImageDragStart: (UnsplashImage?) -> Unit,
     onImageDragEnd: (UnsplashImage?) -> Unit,
@@ -32,7 +33,8 @@ fun ImagesVerticalGrid(
         verticalItemSpacing = 8.dp,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        items(images) { image ->
+        items(count = images.itemCount) { index ->
+            val image = images[index]
             ImageCard(
                 image = image,
                 modifier = Modifier

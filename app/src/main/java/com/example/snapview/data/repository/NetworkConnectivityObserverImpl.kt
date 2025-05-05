@@ -49,6 +49,7 @@ class NetworkConnectivityObserverImpl(
                     trySend(NetworkStatus.Disconnected)
                 }
             }
+            //types of network
             val req = NetworkRequest.Builder()
                 .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
                 .addTransportType(NetworkCapabilities.TRANSPORT_WIFI)
