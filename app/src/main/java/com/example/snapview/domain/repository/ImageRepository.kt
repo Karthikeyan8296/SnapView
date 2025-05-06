@@ -13,5 +13,11 @@ interface ImageRepository {
     //get the single image
     suspend fun getImage(imageId: String): UnsplashImage
 
+    //Search an image
     fun searchImage(query: String): Flow<PagingData<UnsplashImage>>
+
+    //toggling the favImage to send and unSend to fav
+    suspend fun toggleFavoriteStatus(image: UnsplashImage)
+
+    fun getFavoriteImageID(): Flow<List<String>>
 }

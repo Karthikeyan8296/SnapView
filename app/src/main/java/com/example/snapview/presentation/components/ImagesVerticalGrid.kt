@@ -20,9 +20,11 @@ import com.example.snapview.domain.model.UnsplashImage
 fun ImagesVerticalGrid(
     modifier: Modifier = Modifier,
     images: LazyPagingItems<UnsplashImage>,
+    favImageID: List<String>,
     onImageClick: (String) -> Unit,
     onImageDragStart: (UnsplashImage?) -> Unit,
     onImageDragEnd: (UnsplashImage?) -> Unit,
+    isFavClick: (UnsplashImage) -> Unit
 ) {
     LazyVerticalStaggeredGrid(
         columns = StaggeredGridCells.Adaptive(150.dp),
@@ -48,7 +50,9 @@ fun ImagesVerticalGrid(
                             onDragEnd = { onImageDragEnd(image) },
                             onDrag = { _, _ -> }
                         )
-                    }
+                    },
+                isFavorite = favImageID.contains(image?.id),
+                onFavClick = { image?.let { isFavClick(it) } }
             )
         }
     }

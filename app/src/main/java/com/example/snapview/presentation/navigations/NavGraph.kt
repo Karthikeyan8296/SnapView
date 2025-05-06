@@ -5,10 +5,12 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import androidx.compose.runtime.getValue
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.snapview.presentation.screens.ProfileScreen.ProfileScreen
 import com.example.snapview.presentation.screens.FavoriteScreen.FavoriteScreen
@@ -54,6 +56,7 @@ fun NavGraph(
         }
         composable<Routes.SearchScreen> {
             val viewModel: SearchViewModel = hiltViewModel()
+            val favImageID by viewModel.getFavoriteImagesID.collectAsStateWithLifecycle()
             SearchScreen(
                 onImageClick = { imageId ->
                     navController.navigate(Routes.FullImageScreen(imageId = imageId))
@@ -62,7 +65,9 @@ fun NavGraph(
                 snackBarEvent = viewModel.snackBarEvent,
                 snackBarState = snackBarHostState,
                 searchedImages = viewModel.searchImages.collectAsLazyPagingItems(),
-                onSearch = { viewModel.searchImages(it) }
+                onSearch = { viewModel.searchImages(it) },
+                onToggleFavoriteStatus = { viewModel.toggleFavoriteStatus(it) },
+                favImageID = favImageID
             )
         }
         composable<Routes.FavoriteScreen> {

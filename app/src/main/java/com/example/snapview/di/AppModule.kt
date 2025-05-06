@@ -1,11 +1,14 @@
 package com.example.snapview.di
 
 import android.content.Context
+import androidx.room.Room
+import com.example.snapview.data.local.SnapViewDatabase
 import com.example.snapview.data.remote.UnsplashAPIService
 import com.example.snapview.data.repository.DownloaderImpl
 import com.example.snapview.data.repository.ImageRepositoryImpl
 import com.example.snapview.data.repository.NetworkConnectivityObserverImpl
 import com.example.snapview.data.util.Constants.BASE_URL
+import com.example.snapview.data.util.Constants.SNAP_VIEW_DATABASE
 import com.example.snapview.domain.repository.Downloader
 import com.example.snapview.domain.repository.ImageRepository
 import com.example.snapview.domain.repository.NetworkConnectivityObserver
@@ -43,12 +46,26 @@ object AppModule {
         return retrofit.create(UnsplashAPIService::class.java)
     }
 
+    //room database creation
+    @Provides
+    @Singleton
+    fun provideSnapViewDatabase(@ApplicationContext context: Context): SnapViewDatabase {
+        return Room.databaseBuilder(
+            context = context,
+            klass = SnapViewDatabase::class.java,
+            name = SNAP_VIEW_DATABASE
+        ).build()
+    }
+
     //We are telling the hilt that it need to see this function(repository)
     @Provides
     @Singleton
     //connecting the viewmodel with the repo
-    fun provideImageRepository(apiService: UnsplashAPIService): ImageRepository {
-        return ImageRepositoryImpl(apiService)
+    fun provideImageRepository(
+        apiService: UnsplashAPIService, //we need to create an Provide for this
+        database: SnapViewDatabase      //we need to create an Provide for this too
+    ): ImageRepository {
+        return ImageRepositoryImpl(apiService, database)
     }
 
     //we are attaching the downloader impl to the downloader interface

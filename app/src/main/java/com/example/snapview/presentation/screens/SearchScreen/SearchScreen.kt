@@ -58,7 +58,9 @@ fun SearchScreen(
     snackBarState: SnackbarHostState,
     searchedImages: LazyPagingItems<UnsplashImage>,
     onSearch: (String) -> Unit,
-    onBackClick: () -> Unit
+    onBackClick: () -> Unit,
+    onToggleFavoriteStatus: (UnsplashImage) -> Unit,
+    favImageID: List<String>
 ) {
     var showImagePreview by remember { mutableStateOf(false) }
     var ActiveImage by remember { mutableStateOf<UnsplashImage?>(null) }
@@ -165,7 +167,9 @@ fun SearchScreen(
                 },
                 onImageDragEnd = {
                     showImagePreview = false
-                }
+                },
+                isFavClick = onToggleFavoriteStatus,
+                favImageID = favImageID
             )
         }
         //Image card zoom View
