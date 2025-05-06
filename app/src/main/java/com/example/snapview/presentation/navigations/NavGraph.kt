@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.snapview.presentation.screens.ProfileScreen.ProfileScreen
 import com.example.snapview.presentation.screens.FavoriteScreen.FavoriteScreen
+import com.example.snapview.presentation.screens.FavoriteScreen.FavoritesViewModel
 import com.example.snapview.presentation.screens.FullImageScreen.FullImageScreen
 import com.example.snapview.presentation.screens.FullImageScreen.FullImageViewModel
 import com.example.snapview.presentation.screens.HomeScreen.HomeScreen
@@ -71,7 +72,25 @@ fun NavGraph(
             )
         }
         composable<Routes.FavoriteScreen> {
-            FavoriteScreen()
+            val viewModel: FavoritesViewModel = hiltViewModel()
+            val favImageID by viewModel.getFavoriteImagesID.collectAsStateWithLifecycle()
+            FavoriteScreen(
+                onImageClick = { imageId ->
+                    navController.navigate(Routes.FullImageScreen(imageId = imageId))
+                },
+                snackBarEvent = viewModel.snackBarEvent,
+                snackBarState = snackBarHostState,
+                favoriteImages = viewModel.getFavoriteImages.collectAsLazyPagingItems(),
+                onBackClick = {
+                    navController.navigateUp()
+                },
+                onToggleFavoriteStatus = { viewModel.toggleFavoriteStatus(it) },
+                favImageID = favImageID,
+                onSearchClick = {
+                    navController.navigate(Routes.SearchScreen)
+                },
+                scrollBehavior = scrollBehavior
+            )
         }
         //getting the image id with backStackEntry
         composable<Routes.FullImageScreen> {
@@ -80,7 +99,9 @@ fun NavGraph(
             val viewModel: FullImageViewModel = hiltViewModel()
             FullImageScreen(
                 image = viewModel.image,
-                onBackClick = { navController.popBackStack() },
+                onBackClick = {
+                    navController.navigateUp()
+                },
                 onPhotographerNameClick = { photographerProfileLink ->
                     navController.navigate(Routes.ProfileScreen(photographerProfileLink))
                 },
@@ -94,7 +115,9 @@ fun NavGraph(
         composable<Routes.ProfileScreen> { backStackEntry ->
             val profileLink = backStackEntry.toRoute<Routes.ProfileScreen>().profileLink
             ProfileScreen(
-                onBackClick = { navController.popBackStack() },
+                onBackClick = {
+                    navController.navigateUp()
+                },
                 profileLink = profileLink
             )
         }

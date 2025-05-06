@@ -29,9 +29,27 @@ fun List<UnsplashImageDTO>.toDomainModelList(): List<UnsplashImage> {
 }
 
 //DAO
+//fav image db store pannurom
 //changing the Domain model to DAO(Entity)
 fun UnsplashImage.toFavoriteImageEntity(): FavoriteImageEntity {
     return FavoriteImageEntity(
+        id = this.id,
+        imageUrlSmall = this.imageUrlSmall,
+        imageUrlRegular = this.imageUrlRegular,
+        imageUrlRaw = this.imageUrlRaw,
+        photographerName = this.photographerName,
+        photographerUsername = this.photographerUsername,
+        photographerProfileImageUrl = this.photographerProfileImageUrl,
+        photographerProfileLink = this.photographerProfileLink,
+        width = this.width,
+        height = this.height,
+        description = this.description
+    )
+}
+
+//then db la store panna fav image client ku send pannurom(domain model ku convert pannurom)
+fun FavoriteImageEntity.toDomainModel(): UnsplashImage {
+    return UnsplashImage(
         id = this.id,
         imageUrlSmall = this.imageUrlSmall,
         imageUrlRegular = this.imageUrlRegular,
