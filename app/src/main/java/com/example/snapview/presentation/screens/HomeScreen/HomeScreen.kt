@@ -22,8 +22,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.compose.LazyPagingItems
 import com.example.snapview.domain.model.UnsplashImage
 import com.example.snapview.presentation.components.ImagesVerticalGrid
+import com.example.snapview.presentation.components.ImagesVerticalGridNormal
 import com.example.snapview.presentation.components.TopAppBar
 import com.example.snapview.presentation.components.ZoomImageCard
 import com.example.snapview.presentation.util.SnackBarEvent
@@ -32,13 +34,15 @@ import kotlinx.coroutines.flow.Flow
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    images: List<UnsplashImage>,
+    imagesOriginal: LazyPagingItems<UnsplashImage>,
     onClick: (String) -> Unit,
     onSearchClick: () -> Unit,
     scrollBehavior: TopAppBarScrollBehavior,
     onFabClick: () -> Unit,
     snackBarEvent: Flow<SnackBarEvent>,
-    snackBarState: SnackbarHostState
+    snackBarState: SnackbarHostState,
+    onToggleFavoriteStatus: (UnsplashImage) -> Unit,
+    favImageID: List<String>
 ) {
     var showImagePreview by remember { mutableStateOf(false) }
     var ActiveImage by remember { mutableStateOf<UnsplashImage?>(null) }
@@ -64,17 +68,19 @@ fun HomeScreen(
                 onSearchClick = onSearchClick,
                 scrollBehavior = scrollBehavior
             )
-//            ImagesVerticalGrid(
-//                images = images,
-//                onImageClick = onClick,
-//                onImageDragStart = { image ->
-//                    ActiveImage = image
-//                    showImagePreview = true
-//                },
-//                onImageDragEnd = {
-//                    showImagePreview = false
-//                }
-//            )
+            ImagesVerticalGrid(
+                images = imagesOriginal,
+                onImageClick = onClick,
+                onImageDragStart = { image ->
+                    ActiveImage = image
+                    showImagePreview = true
+                },
+                onImageDragEnd = {
+                    showImagePreview = false
+                },
+                favImageID = favImageID,
+                isFavClick = onToggleFavoriteStatus
+            )
         }
 
         FloatingActionButton(

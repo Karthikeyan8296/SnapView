@@ -38,8 +38,8 @@ fun NavGraph(
             //val viewModel = viewModel<HomeViewModel>()
             //using dagger hilt
             val viewModel: HomeViewModel = hiltViewModel()
+            val favImageID by viewModel.getFavoriteImagesID.collectAsStateWithLifecycle()
             HomeScreen(
-                images = viewModel.images,
                 scrollBehavior = scrollBehavior,
                 //passing the image id
                 onClick = { imageId ->
@@ -52,7 +52,10 @@ fun NavGraph(
                     navController.navigate(Routes.FavoriteScreen)
                 },
                 snackBarEvent = viewModel.snackBarEvent,
-                snackBarState = snackBarHostState
+                snackBarState = snackBarHostState,
+                onToggleFavoriteStatus = { viewModel.toggleFavoriteStatus(it) },
+                favImageID = favImageID,
+                imagesOriginal = viewModel.imagesOriginal.collectAsLazyPagingItems()
             )
         }
         composable<Routes.SearchScreen> {

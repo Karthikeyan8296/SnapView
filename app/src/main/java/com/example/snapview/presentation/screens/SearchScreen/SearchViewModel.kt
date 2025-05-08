@@ -19,7 +19,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val repository: ImageRepository) : ViewModel() {
+class SearchViewModel @Inject constructor(
+    private val repository: ImageRepository
+) : ViewModel() {
 
     //SnackBar
     private val _snackBarEvent = Channel<SnackBarEvent>()

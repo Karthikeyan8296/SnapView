@@ -11,7 +11,9 @@ interface ImageRepository {
     //fun -> if we want the data continuously, then we use this fun with Flow return (more data like rendering list and continuously)
 
     //list of images
-    suspend fun getEditorialFeedImages(): List<UnsplashImage>
+//    suspend fun getEditorialFeedImages(): List<UnsplashImage>
+
+    fun getEditorialFeedImageOriginal(): Flow<PagingData<UnsplashImage>>
 
     //get the single image
     suspend fun getImage(imageId: String): UnsplashImage
