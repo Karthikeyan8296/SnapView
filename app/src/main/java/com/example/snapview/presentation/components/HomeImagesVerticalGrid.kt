@@ -36,7 +36,7 @@ import com.example.snapview.presentation.util.searchKeyword
 import com.example.snapview.ui.theme.InterFontFamily
 
 @Composable
-fun ImagesVerticalGrid(
+fun HomeImagesVerticalGrid(
     modifier: Modifier = Modifier,
     images: LazyPagingItems<UnsplashImage>,
     favImageID: List<String>,
@@ -54,6 +54,21 @@ fun ImagesVerticalGrid(
         verticalItemSpacing = 8.dp,
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
+        item(span = StaggeredGridItemSpan.FullLine) {
+            Text(
+                text = "Your Perfect Screen, \nOne Tap Away! ❤\uFE0F\u200D\uD83D\uDD25",
+                textAlign = TextAlign.Left,
+                fontFamily = InterFontFamily,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.SemiBold,
+                lineHeight = 30.sp,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 8.dp, top = 8.dp, bottom = 8.dp)
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
 //        item(span = StaggeredGridItemSpan.FullLine) {
 //            LazyRow(
 //                contentPadding = PaddingValues(horizontal = 10.dp),

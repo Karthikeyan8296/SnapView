@@ -90,8 +90,9 @@ class MainActivity : ComponentActivity() {
                             backgroundColor = backgroundColor,
                         )
                     }
-                ) {
+                ) {paddingValues->
                     NavGraph(
+                        paddingValues = paddingValues,
                         navController = navController,
                         scrollBehavior = scrollBehavior,
                         snackBarHostState = snackBarState

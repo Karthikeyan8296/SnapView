@@ -1,5 +1,6 @@
 package com.example.snapview.presentation.navigations
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarScrollBehavior
@@ -19,6 +20,7 @@ import com.example.snapview.presentation.screens.FullImageScreen.FullImageScreen
 import com.example.snapview.presentation.screens.FullImageScreen.FullImageViewModel
 import com.example.snapview.presentation.screens.HomeScreen.HomeScreen
 import com.example.snapview.presentation.screens.HomeScreen.HomeViewModel
+import com.example.snapview.presentation.screens.OnBoardingScreen.OnBoardingScreen
 import com.example.snapview.presentation.screens.SearchScreen.SearchScreen
 import com.example.snapview.presentation.screens.SearchScreen.SearchViewModel
 
@@ -27,12 +29,17 @@ import com.example.snapview.presentation.screens.SearchScreen.SearchViewModel
 fun NavGraph(
     navController: NavHostController,
     scrollBehavior: TopAppBarScrollBehavior,
-    snackBarHostState: SnackbarHostState
+    snackBarHostState: SnackbarHostState,
+    paddingValues: PaddingValues
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.HomeScreen
+        startDestination = Routes.OnBoardingScreen
     ) {
+        composable<Routes.OnBoardingScreen> {
+            OnBoardingScreen(paddingValues = paddingValues)
+        }
+
         composable<Routes.HomeScreen> {
             //viewModel
             //val viewModel = viewModel<HomeViewModel>()
