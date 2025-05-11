@@ -124,7 +124,9 @@ fun FavoriteScreen(
             isVisible = showImagePreview,
             image = ActiveImage,
         )
+
 //        if (favoriteImages.itemCount == 0) {
+//            EmptyState()
 //        }
     }
 }

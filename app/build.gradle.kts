@@ -85,6 +85,9 @@ dependencies {
     implementation ("com.google.accompanist:accompanist-pager:0.34.0")
     implementation ("com.google.accompanist:accompanist-pager-indicators:0.34.0")
 
+    //data store for onboarding screen
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+
     //compose
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.lifecycle.runtime.compose)

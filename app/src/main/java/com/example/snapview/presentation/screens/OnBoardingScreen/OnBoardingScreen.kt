@@ -2,6 +2,7 @@ package com.example.snapview.presentation.screens.OnBoardingScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -33,11 +35,19 @@ import com.example.snapview.presentation.components.ImageCarousel
 import com.example.snapview.ui.theme.InterFontFamily
 
 @Composable
-fun OnBoardingScreen(modifier: Modifier = Modifier, paddingValues: PaddingValues) {
+fun OnBoardingScreen(
+    modifier: Modifier = Modifier,
+    paddingValues: PaddingValues,
+    onButtonClick: () -> Unit
+) {
     val images = listOf(
         R.drawable.pic1,
-        R.drawable.pic1,
-        R.drawable.pic1
+        R.drawable.pic2,
+        R.drawable.pic3,
+        R.drawable.pic4,
+        R.drawable.pic5,
+        R.drawable.pic6,
+        R.drawable.pic7
     )
     Column(
         modifier = Modifier
@@ -74,7 +84,7 @@ fun OnBoardingScreen(modifier: Modifier = Modifier, paddingValues: PaddingValues
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 24.dp)
+                .padding(horizontal = 20.dp)
         ) {
             Text(
                 text = "Transform Your Screen, One\nWallpaper at a Time!",
@@ -102,15 +112,16 @@ fun OnBoardingScreen(modifier: Modifier = Modifier, paddingValues: PaddingValues
                     .fillMaxWidth()
                     .padding(vertical = 16.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(color = Color.White),
+                    .clickable(onClick = { onButtonClick() })
+                    .background(color = Color(0xFF0D3A75)),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
                     modifier = Modifier.padding(vertical = 12.dp),
                     text = "Get Started \uD83D\uDE80", fontSize = 18.sp,
                     fontFamily = InterFontFamily,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.Black
+                    fontWeight = FontWeight.SemiBold,
+                    color = Color.White
                 )
 
             }
@@ -121,5 +132,5 @@ fun OnBoardingScreen(modifier: Modifier = Modifier, paddingValues: PaddingValues
 @Preview(showBackground = true)
 @Composable
 private fun PreviewOnBoarding() {
-    OnBoardingScreen(paddingValues = PaddingValues())
+//    OnBoardingScreen(paddingValues = PaddingValues())
 }

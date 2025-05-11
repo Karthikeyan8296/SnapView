@@ -102,7 +102,7 @@ fun SearchScreen(
                     .onFocusChanged { isSuggestionChipVisible = it.isFocused },
                 query = query,
                 onQueryChange = { query = it },
-                placeholder = { Text(text = "search") },
+                placeholder = { Text(text = "Search") },
                 trailingIcon = {
                     IconButton(
                         onClick = {
@@ -121,7 +121,7 @@ fun SearchScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Search,
-                            contentDescription = "search"
+                            contentDescription = "Search"
                         )
                     }
                 },

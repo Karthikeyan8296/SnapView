@@ -5,6 +5,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -12,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.snapview.presentation.screens.ProfileScreen.ProfileScreen
 import com.example.snapview.presentation.screens.FavoriteScreen.FavoriteScreen
@@ -20,9 +22,12 @@ import com.example.snapview.presentation.screens.FullImageScreen.FullImageScreen
 import com.example.snapview.presentation.screens.FullImageScreen.FullImageViewModel
 import com.example.snapview.presentation.screens.HomeScreen.HomeScreen
 import com.example.snapview.presentation.screens.HomeScreen.HomeViewModel
+import com.example.snapview.presentation.screens.OnBoardingScreen.OnBoardingManager
 import com.example.snapview.presentation.screens.OnBoardingScreen.OnBoardingScreen
 import com.example.snapview.presentation.screens.SearchScreen.SearchScreen
 import com.example.snapview.presentation.screens.SearchScreen.SearchViewModel
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,14 +35,27 @@ fun NavGraph(
     navController: NavHostController,
     scrollBehavior: TopAppBarScrollBehavior,
     snackBarHostState: SnackbarHostState,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    startDestination: Routes,
+    onBoardingManager: OnBoardingManager
 ) {
     NavHost(
         navController = navController,
-        startDestination = Routes.OnBoardingScreen
+        startDestination = startDestination
     ) {
         composable<Routes.OnBoardingScreen> {
-            OnBoardingScreen(paddingValues = paddingValues)
+            val coroutineScope = rememberCoroutineScope()
+            OnBoardingScreen(paddingValues = paddingValues, onButtonClick = {
+                //Save the onBoarding State
+                coroutineScope.launch {
+                    onBoardingManager.setOnBoardingCompleted(true)
+                    navController.navigate(Routes.HomeScreen) {
+                        popUpTo(Routes.OnBoardingScreen) {
+                            inclusive = true
+                        }
+                    }
+                }
+            })
         }
 
         composable<Routes.HomeScreen> {

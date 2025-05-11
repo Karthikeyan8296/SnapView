@@ -13,6 +13,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.util.lerp
+import coil.compose.rememberAsyncImagePainter
 import com.google.accompanist.pager.*
 import kotlin.math.absoluteValue
 
@@ -49,7 +50,7 @@ fun ImageCarousel(
                 .background(Color.DarkGray)
         ) {
             Image(
-                painter = painterResource(id = imageList[page]),
+                painter = rememberAsyncImagePainter(model = imageList[page]),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier.fillMaxSize()

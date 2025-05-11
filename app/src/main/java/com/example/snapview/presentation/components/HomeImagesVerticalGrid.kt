@@ -59,38 +59,15 @@ fun HomeImagesVerticalGrid(
                 text = "Your Perfect Screen, \nOne Tap Away! ❤\uFE0F\u200D\uD83D\uDD25",
                 textAlign = TextAlign.Left,
                 fontFamily = InterFontFamily,
-                fontSize = 24.sp,
+                fontSize = 30.sp,
                 fontWeight = FontWeight.SemiBold,
-                lineHeight = 30.sp,
+                lineHeight = 38.sp,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 8.dp, top = 8.dp, bottom = 8.dp)
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
-
-//        item(span = StaggeredGridItemSpan.FullLine) {
-//            LazyRow(
-//                contentPadding = PaddingValues(horizontal = 10.dp),
-//                horizontalArrangement = Arrangement.spacedBy(10.dp)
-//            ) {
-//                items(searchKeyword) { keyword ->
-//                    SuggestionChip(
-//                        onClick = {
-////                            query = keyword
-////                            onSearch(query)
-////                            keyboardController?.hide()
-////                            focusManager.clearFocus()
-//                        },
-//                        label = { Text(text = keyword) },
-//                        colors = SuggestionChipDefaults.suggestionChipColors(
-//                            containerColor = Color.White,
-//                            labelColor = Color.Black
-//                        )
-//                    )
-//                }
-//            }
-//        }
 
         items(count = images.itemCount) { index ->
             val image = images[index]

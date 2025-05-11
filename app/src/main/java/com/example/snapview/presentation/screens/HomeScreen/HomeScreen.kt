@@ -78,7 +78,6 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = MaterialTheme.colorScheme.background),
-//            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             TopAppBar(
                 onSearchClick = onSearchClick,

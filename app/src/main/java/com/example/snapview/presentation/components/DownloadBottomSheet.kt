@@ -51,7 +51,7 @@ fun DownloadBottomSheet(
 }
 
 enum class ImageDownloadOption(val label: String) {
-    SMALL(label = "Download Small Size"),
-    MEDIUM(label = "Download Medium Size"),
-    ORIGINAL(label = "Download Original Size")
+    SMALL(label = "Small (Faster Download)"),
+    MEDIUM(label = "Medium (Balanced Quality)"),
+    ORIGINAL(label = "Original (Full Quality)")
 }
